@@ -10,9 +10,9 @@ selected = "health"
 
 // Import + Export Shit
 
-window.onbeforeunload = function(){
-    return "Make sure you export your data before you leave!"
-}
+// window.onbeforeunload = function(){
+//     return "Make sure you export your data before you leave!"
+// }
 
 function download(content, fileName, contentType) {
     var a = document.createElement("a");

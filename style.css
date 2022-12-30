@@ -185,6 +185,29 @@ input[type="text"], input[type="number"] {
 .bars { grid-area: bars; }
 .data-handler {grid-area: impexp;}
 
+@media screen and (min-width: 10em) {
+    .main-grid {
+        grid-template-areas: 
+            'header header'
+            'impexp impexp'
+            'bars bars'
+            'charinfo charinfo';
+    }
+}
+
+@media screen and (min-width: 53em) {
+    .main-grid {
+        grid-template-areas: 
+            'header header impexp impexp impexp'
+            '. bars bars bars .'
+            'charinfo charinfo charinfo charinfo charinfo';
+    }
+
+    .data-sec {
+        justify-content: center;
+    }
+}
+
 @media screen and (min-width: 65em) {
     .main-grid {
         grid-template-areas: 
