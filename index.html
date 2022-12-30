@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Magic Character Sheet</title>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+        <main class="main-grid">
+            <div class="sheetHeader">
+                <h1>The Magic World</h1>
+                <h2>Character Creation Sheet</h2>
+            </div>
+            <div class="data-handler info-cell">
+                <div class="data-sec">
+                    <h2>Import Data</h2>
+                    <input type="file" id="saveUploader" accept=".json" onchange="saveImport(this)">
+                </div>
+                <div class="data-sec">
+                    <h2>Export Character</h2>
+                    <button type="button" onclick="exportData()">Export</button>
+                </div>
+            </div>
+            <div class="charInfo info-cell">
+                <h1>Character Info</h1>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h2>Name</h2>
+                        <input type="text" id="characterName" placeholder="E.g. Blake Twimsworth">
+                    </div>
+                    <div class="info-item">
+                        <h2>Age</h2>
+                        <input type="number" id="characterAge" placeholder=0>
+                    </div>
+                    <div class="info-item">
+                        <h2>Alignment</h2>
+                        <input type="text" id="characterAlignment" placeholder="E.g. Chaotic Neutral">
+                    </div>
+                    <div class="info-item">
+                        <h2>Height</h2>
+                        <input type="text" id="characterHeight" placeholder="E.g. 5ft 10">
+                    </div>
+                    <div class="info-item">
+                        <h2>Weight (kg)</h2>
+                        <input type="number" id="characterWeight" placeholder=0 min=0>
+                    </div>
+                    <div class="info-item">
+                        <h2>Magic Type</h2>
+                        <select id="magicType">
+                            <option value="attacker">Attacker</option>
+                            <option value="defender">Defender</option>
+                            <option value="support">Support</option>
+                            <option value="allRound">All-Rounder</option>
+                            <option value="none">None</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="bars info-cell">
+                <div>
+                    <h1>Health</h1>
+                    <div class="bar">
+                        <h3 id="health-numbers">100 / 100</h3>
+                        <div class="bar-main">
+                            <div class="progress" id="health-bar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h1>Cell Count</h1>
+                    <div class="bar">
+                        <h3 id="cell-numbers">100 / 100</h3>
+                        <div class="bar-main">
+                            <div class="progress" id="cell-bar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 2rem; align-self: center;">
+                    <div class="col button-col">
+                        <button type="button" id="healthSelectionButton" onclick="barSelected(this)">Health</button>
+                        <button type="button" id="cellSelectionButton" onclick="barSelected(this)">Cell Count</button>
+                    </div>
+                    <input type="number" value="0" min="0" class="barsInput">
+                    <div>
+                        <button type="button" id="addBars" class="barAlterButtons" onclick="addSub(this)">+</button>
+                        <button type="button" id="subtractBars" class="barAlterButtons" onclick="addSub(this)">-</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <script src="./script.js"></script>
+    </body>
+</html>

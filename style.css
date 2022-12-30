@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@500&display=swap');
+
+body,
+h1,
+h2,
+h3,
+p {
+    margin: 0;
+}
+
+body {
+    display: grid;
+    place-content: start center;
+    min-height: 100vh;
+
+    font-family: 'Lora', serif;
+}
+
+input[type="text"], input[type="number"] {
+    border: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.658);
+    padding-bottom: 0.2rem;
+}
+
+.col {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.main-grid {
+    display: grid;
+    gap: 1.2rem;
+    grid-auto-columns: 1fr;
+    
+    width: min(95%, 70rem);
+    padding-block: 1rem;
+    margin-inline: auto;
+}
+
+.info-cell {
+    padding: 1rem;
+}
+
+.info-cell h2 {
+    font-size: 1.3rem;
+}
+
+.bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.sheetHeader {
+    grid-area: header;
+    padding: 1.5rem 1rem;
+}
+
+.sheetHeader h1 {
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 3rem;
+}
+
+.info-row {
+    display: flex;
+    gap: 2rem;
+}
+
+.info-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    row-gap: 0.5rem;
+}
+
+.bars {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.bar-main {
+    width: min(80%, 20rem);
+    height: 1.5rem;
+    border-radius: 2rem;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+    overflow: hidden;
+}
+
+.progress {
+    width: 100%;
+    height: 100%;
+    background-color: greenyellow;
+    transition: width 1s ease-out, background-color 1s ease-out;
+}
+
+.barsInput {
+    font-size: 1.5rem;
+    width: 4rem;
+    font-family: 'Lora', serif;
+}
+
+.charInfo {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+}
+
+.button-col button {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    padding: 0.3em 0.7em;
+    border-radius: 0.5rem;
+    transition: color 0.15s, background-color 0.15s;
+}
+
+.button-col {
+    gap: 0.5rem;
+}
+
+#healthSelectionButton {
+    border: 2px solid #46a552;
+    background-color: #46a552;
+    color: #ffffff;
+}
+
+#cellSelectionButton {
+    border: 2px solid #4f99bb;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.barAlterButtons {
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+#addBars {
+    background-color: #338633;
+    color: #ffffff;
+    font-size: 1.5rem;
+    border: 2px solid #338633;
+    padding: 0.3rem 0.6rem;
+}
+
+#subtractBars {
+    background-color: #863333;
+    color: #ffffff;
+    font-size: 1.5rem;
+    border: 2px solid #863333;
+    padding: 0.3rem 0.85rem;
+}
+
+#health-bar {
+    background-color: #6edb64;
+}
+
+#cell-bar {
+    background-color: #59dfd8;
+}
+
+.data-handler {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.data-sec {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.charInfo {grid-area: charinfo;}
+.bars { grid-area: bars; }
+.data-handler {grid-area: impexp;}
+
+@media screen and (min-width: 65em) {
+    .main-grid {
+        grid-template-areas: 
+            'header header header header'
+            'impexp impexp bars bars'
+            'charinfo charinfo bars bars'
+            'charinfo charinfo bars bars';
+    }
+}
