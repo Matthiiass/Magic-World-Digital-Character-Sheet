@@ -92,7 +92,7 @@
             <div class="spell-list info-cell">
                 <h1>Spell List</h1>
                 <div class="spellOptions">
-                    <select id="spellType">
+                    <select id="spellType" onchange="changeSpellList(this)">
                         <optgroup label = 'Tier 0'>
                             <option value="fusion">Fusion</option>
                         </optgroup>
@@ -136,9 +136,13 @@
                             <option value="antimagic">Anti-Magic</option>
                         </optgroup>
                     </select>
+                    <select id="spellName">
+                        <option id=0>Fuse</option>
+                    </select>
                 </div>
             </div>
         </main>
         <script src="./script.js"></script>
+        <script src="./magics.js"></script>
     </body>
 </html>

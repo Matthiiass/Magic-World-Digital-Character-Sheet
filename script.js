@@ -1,10 +1,10 @@
 // VARIABLES
 
-current_health = 100
-max_health = 100
-current_cells = 100
-max_cells = 100
-selected = "health"
+var current_health = 100
+var max_health = 100
+var current_cells = 100
+var max_cells = 100
+var selected = "health"
 
 // ------------------------------
 
@@ -72,11 +72,13 @@ function exportData() {
     download(JSON.stringify(obj), filename + ".json", 'text/plain')
 }
 
+// ------------------------------
+
 // Health and Cell Bar Handling
 
 function updateBars(bar) {
     if (bar == "health"){
-        percent = (current_health / max_health) * 100
+        var percent = (current_health / max_health) * 100
         if (percent >= 70) {
             document.querySelector('#health-bar').style.backgroundColor = '#6edb64'
         }
@@ -93,7 +95,7 @@ function updateBars(bar) {
         document.querySelector('#health-numbers').innerHTML = current_health.toString() + " / " + max_health.toString()
     }
     else {
-        percent = (current_cells / max_cells) * 100
+        var percent = (current_cells / max_cells) * 100
         if (percent >= 80) {
             document.querySelector('#cell-bar').style.backgroundColor = '#59dfd8'
         }
@@ -167,4 +169,27 @@ function addSub(button){
     }
 
     document.querySelector('.barsInput').value = 0
+}
+
+// ------------------------------
+
+// Spell Handling
+
+function changeSpellList(magicList) {
+    var magicType = magicList.value
+
+    var spells = Object.keys(spellList[magicType])
+
+    var spellNameMenu = document.getElementById('spellName')
+    for (item in spellNameMenu.options) {
+        spellNameMenu.options.remove(0)
+    }
+
+
+    for (var i = 0; i < spells.length; i++) {
+        var option = document.createElement("option")
+        option.value = i
+        option.text = spells[i]
+        spellNameMenu.appendChild(option)
+    }
 }
