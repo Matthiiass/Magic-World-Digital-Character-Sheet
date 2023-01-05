@@ -1,0 +1,5 @@
+spellList = {
+    "fusion": {
+        
+    }
+}
