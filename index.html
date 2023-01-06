@@ -64,7 +64,9 @@
                     <div class="bar">
                         <h3 id="health-numbers">100 / 100</h3>
                         <div class="bar-main">
-                            <div class="progress" id="health-bar"></div>
+                            <div class="progress" id="health-bar">
+                                <div class="progress" id="overhealth-bar"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -86,6 +88,10 @@
                     <div>
                         <button type="button" id="addBars" class="barAlterButtons" onclick="addSub(this)">+</button>
                         <button type="button" id="subtractBars" class="barAlterButtons" onclick="addSub(this)">-</button>
+                    </div>
+                    <div style="display: flex; flex-direction: column-reverse; align-items: center;">
+                        <input type="checkbox" id="overhealthEnabled">
+                        <p>Overhealth?</p>
                     </div>
                 </div>
             </div>

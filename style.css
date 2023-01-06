@@ -170,6 +170,11 @@ input[type="text"], input[type="number"] {
     background-color: #59dfd8;
 }
 
+#overhealth-bar {
+    background-color: #e7d531;
+    width: 0%;
+}
+
 .data-handler {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -279,6 +284,37 @@ input[type="text"], input[type="number"] {
     }
 }
 
-.fusion {background-color: #5a270f;}
-.fire {background-color: #e34034;}
-.time {background: rgb(142,217,122); background: linear-gradient(90deg, rgba(142,217,122,1) 0%, rgba(136,136,136,1) 100%);}
+.fusion {background: #91C2FF; background: linear-gradient(90deg, #91C2FF 0%, #FF853F 100%);}
+.fire {background-color: #FF303E;}
+.water {background-color: #63B3FF;}
+.air {background-color: #AAFFB7;}
+.earth {background-color: #A86D35;}
+
+.light {background-color: #FFE53F;}
+.dark {background-color: #6262AD;}
+.smoke {background-color: #919191;}
+.lightning {background-color: #CEAD29;}
+.ice {background-color: #FFFFFF;}
+.nature {background-color: #53B54F;}
+
+.chaos {background: #FE0E06; background: linear-gradient(90deg, #FE0E06 0%, #9E6AFA 100%);}
+.order {background: #9E5E27; background: linear-gradient(90deg, #FFDE4C 0%, #9E5E27 100%);}
+.love {background-color: #FF5ED9;}
+.explosion {background-color: #FF6C4F;}
+.shadow {background-color: #724E8B;}
+.sound {background-color: #710F3F;}
+.aurora {background: #d021df; background: linear-gradient(0deg, #e2d623 0%, #daa020 25%, #d021df 50%, #029bd9 75%, #00ff1d 100%);}
+
+.illusion {background-color: #6B5069;}
+.dream {background: #FF89F3; background: linear-gradient(0deg, #FFFDFF 0%, #FF89F3 100%);}
+.nightmare {background: #541517; background: linear-gradient(90deg, #b12c30 0%, #121111 100%);}
+.spatial {background: #4D5EFF; background: linear-gradient(0deg, #4D5EFF 0%, #DD63FF 100%);}
+.gravity {background-color: #B5447C;}
+.life {background: #84B5AC; background: linear-gradient(0deg, #FFA3E6 0%, #84B5AC 100%);}
+
+.time {background: #8ed97a; background: linear-gradient(0deg, #8ed97a 0%, #888888 50%, #8ed97a 100%);}
+.space {background: #FFA970; background: linear-gradient(0deg, #FFA970 0%, #C55FFD 100%);}
+.death {background-color: #111111;}
+.fairy {background: #EC53FF; background: linear-gradient(0deg, #EC53FF 0%, #A60DFF 100%);}
+.ghost {background: #491B79; background: linear-gradient(90deg, #491B79 0%, #161616 100%);}
+.antimagic {background: rgb(184,184,184); background: linear-gradient(90deg, rgba(184,184,184,1) 0%, rgba(113,113,113,1) 100%);}

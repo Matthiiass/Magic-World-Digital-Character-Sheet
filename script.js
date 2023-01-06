@@ -2,6 +2,8 @@
 
 var current_health = 100
 var max_health = 100
+var current_overhealth = 0
+var max_overhealth = max_health
 var current_cells = 100
 var max_cells = 100
 var selected = "health"
@@ -42,6 +44,51 @@ function setImportedValues(dataOBJ) {
     max_health = dataOBJ.maxHealth
     current_cells = dataOBJ.currentCells
     max_cells = dataOBJ.maxCells
+
+    for (var i = 0; i < dataOBJ.equippedSpells.length; i++) {
+        var spellType = dataOBJ.equippedSpells[i][0]
+        var spellName = dataOBJ.equippedSpells[i][1]
+        var spellInfo = spellList[spellType][spellName]
+
+        var templateSpell = document.querySelector('.template-spell')
+        var newSpell = templateSpell.cloneNode(true)
+
+        newSpell.classList.remove('template-spell')
+        newSpell.classList.add('active-spell')
+        newSpell.querySelector('.spellElementColour').classList.add(spellType)
+        newSpell.querySelector('.spellElementColour').title = capitalizeFirstLetter(spellType)
+        newSpell.querySelector('.spellElementColour').classList.remove('spellElementColour')
+        newSpell.querySelector('.listedSpellName').innerHTML = spellName
+
+        for (const [key, value] of Object.entries(spellInfo)) {
+            if (key == "description") {
+                newSpell.querySelector('.spellDescription').innerHTML = value
+            }
+            else {
+                var section = document.createElement('div')
+                section.classList.add('spellSection')
+
+                var heading = document.createElement('h4')
+                heading.innerHTML = capitalizeFirstLetter(key)
+                section.appendChild(heading)
+                if (key == "cost") {
+                    newSpell.querySelector('.confirmCast').style.display = "block"
+                }
+
+                var val = document.createElement('p')
+                val.innerHTML = value
+                val.classList.add('listedSpell' + capitalizeFirstLetter(key))
+                section.appendChild(val)
+
+                newSpell.querySelector('.aboutSpell').appendChild(section)
+            }
+        }
+
+        document.querySelector('.spellHolder').appendChild(newSpell)
+    }
+
+    colourSpells()
+    checkSpellCasting()
     updateBars('health')
     updateBars('cells')
 
@@ -78,6 +125,16 @@ function exportData() {
         "equippedSpells": []
     }
 
+    var spells = document.querySelectorAll('.active-spell')
+    for (var i = 0; i < spells.length; i++) {
+        var temp_list = []
+        var spell = spells[i]
+
+        temp_list.push(spell.children[0].title.toLowerCase())
+        temp_list.push(spell.querySelector('.listedSpellName').innerHTML)
+        obj.equippedSpells.push(temp_list)
+    }
+
     var filename = document.getElementById('characterName').value.toLowerCase().replaceAll(' ', '_')
 
     download(JSON.stringify(obj), filename + ".json", 'text/plain')
@@ -90,6 +147,7 @@ function exportData() {
 function updateBars(bar) {
     if (bar == "health"){
         var percent = (current_health / max_health) * 100
+        var overhealthPercent = (current_overhealth / max_overhealth) * 100
         if (percent >= 70) {
             document.querySelector('#health-bar').style.backgroundColor = '#6edb64'
         }
@@ -103,7 +161,8 @@ function updateBars(bar) {
             document.querySelector('#health-bar').style.backgroundColor = '#661b1b'
         }
         document.querySelector('#health-bar').style.width = percent.toString() + "%"
-        document.querySelector('#health-numbers').innerHTML = current_health.toString() + " / " + max_health.toString()
+        document.querySelector('#overhealth-bar').style.width = overhealthPercent.toString() + "%"
+        document.querySelector('#health-numbers').innerHTML = (current_health + current_overhealth).toString() + " / " + max_health.toString()
     }
     else {
         var percent = (current_cells / max_cells) * 100
@@ -129,13 +188,90 @@ function updateBars(bar) {
 
 function calculateBars(bar, value) {
     if (bar == "health") {
-        current_health = current_health + value
-        if (current_health > max_health) {
-            current_health = max_health
+        var overhealthOn = document.querySelector('#overhealthEnabled').checked
+
+        if (overhealthOn) {
+            // If overhealth is enabled
+            if (value > 0) {
+                // If we're adding HP
+                if (current_health < max_health) {
+                    // If main health needs restoring
+                    var healthNeeded = max_health - current_health
+                    if (value > healthNeeded) {
+                        var extraHealth = value - healthNeeded
+                        current_health = max_health
+                        current_overhealth = extraHealth
+                    }
+                    else {
+                        current_health += value
+                    }
+                }
+                else {
+                    // If we're already at max hp or are in overhealth
+                    current_overhealth += value
+                    if (current_overhealth > max_overhealth) {
+                        current_overhealth = max_overhealth
+                    }
+                }
+            }
+            else {
+                // If we're subtracting HP
+                value = Math.abs(value)
+                if (current_overhealth > 0) {
+                    if (current_overhealth > value) {
+                        current_overhealth -= value
+                    }
+                    else {
+                        var remainingValue = value - current_overhealth
+                        current_overhealth = 0
+                        current_health -= remainingValue
+                    }
+                }
+                else {
+                    current_health -= value
+                }
+            }
         }
+        else {
+            // If overhealth isn't enabled
+            if (value > 0) {
+                // If we're adding HP
+                if (current_overhealth > 0) {
+                    return
+                }
+                else {
+                    if (current_health + value > max_health) {
+                        current_health = max_health
+                    }
+                    else {
+                        current_health += value
+                    }
+                }
+            }
+            else {
+                // If we're subtracting HP
+                value = Math.abs(value)
+                if (current_overhealth > 0) {
+                    if (current_overhealth > value) {
+                        current_overhealth -= value
+                    }
+                    else {
+                        var remainingValue = value - current_overhealth
+                        current_overhealth = 0
+                        current_health -= remainingValue
+                    }
+                }
+                else {
+                    current_health -= value
+                }
+            }
+        }
+
         if (current_health < 0) {
             current_health = 0
         }
+
+        console.log(current_health, max_health, current_overhealth)
     }
     else {
         current_cells = current_cells + value
@@ -252,6 +388,7 @@ function addSpell() {
     newSpell.classList.remove('template-spell')
     newSpell.classList.add('active-spell')
     newSpell.querySelector('.spellElementColour').classList.add(spellType)
+    newSpell.querySelector('.spellElementColour').title = capitalizeFirstLetter(spellType)
     newSpell.querySelector('.spellElementColour').classList.remove('spellElementColour')
     newSpell.querySelector('.listedSpellName').innerHTML = spellName
 
@@ -278,10 +415,6 @@ function addSpell() {
             newSpell.querySelector('.aboutSpell').appendChild(section)
         }
     }
-
-    // newSpell.querySelector('.listedSpellCost').innerHTML = spellInfo.cost.toString()
-    // newSpell.querySelector('.listedSpellDamage').innerHTML = spellInfo.damage
-    // newSpell.querySelector('.listedSpellRange').innerHTML = spellInfo.range
 
     document.querySelector('.spellHolder').appendChild(newSpell)
     colourSpells()
