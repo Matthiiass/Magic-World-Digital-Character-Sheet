@@ -137,26 +137,21 @@
                         </optgroup>
                     </select>
                     <select id="spellName">
-                        <option id=0>Fuse</option>
+                        <option value=0>Fuse</option>
                     </select>
-                    <button type="button">Add Spell</button>
+                    <button type="button" onclick="addSpell()">Add Spell</button>
                 </div>
                 <div class="spellHolder">
-                    <div class="spell">
-                        <h2>[Spell Name]</h2>
-                        <div class="aboutSpell">
-                            <div class="spellSection">
-                                <h4>Range</h4>
+                    <div class="spell template-spell">
+                        <div class="spellElementColour"></div>
+                        <div style="display: flex; flex-direction: column; padding: 0.5rem; row-gap: 0.5rem;">
+                            <div style="display: flex; gap: 0.5rem;">
+                                <h2 class="listedSpellName">[Spell Name]</h2>
+                                <button type="button" class="confirmCast" onclick="castSpell(this)">Cast</button>
+                                <button type="button" onclick="removeSpell(this)">Remove</button>
                             </div>
-                            <div class="spellSection">
-                                <h4>Range</h4>
-                            </div>
-                            <div class="spellSection">
-                                <h4>Range</h4>
-                            </div>
-                            <div class="spellSection">
-                                <h4>Range</h4>
-                            </div>
+                            <div class="aboutSpell"></div>
+                            <p class="spellDescription">This spell doesn't have a description.</p>
                         </div>
                     </div>
                 </div>

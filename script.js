@@ -6,6 +6,12 @@ var current_cells = 100
 var max_cells = 100
 var selected = "health"
 
+// UTILITY FUNCTIONS
+
+function capitalizeFirstLetter(string) {
+    return string[0].toUpperCase() + string.slice(1);
+}
+
 // ------------------------------
 
 // Import + Export Shit
@@ -14,6 +20,7 @@ var selected = "health"
 //     return "Make sure you export your data before you leave!"
 // }
 
+// Function to download data
 function download(content, fileName, contentType) {
     var a = document.createElement("a");
     var file = new Blob([content], {type: contentType});
@@ -23,6 +30,7 @@ function download(content, fileName, contentType) {
     URL.revokeObjectURL(a.href)
 }
 
+// Handles data that is imported
 function setImportedValues(dataOBJ) {
     document.getElementById('characterName').value = dataOBJ.name
     document.getElementById('characterAge').value = dataOBJ.age
@@ -39,6 +47,7 @@ function setImportedValues(dataOBJ) {
 
 }
 
+// Import data
 function saveImport(importItem) {
     var importedFile = importItem.files[0];
 
@@ -53,6 +62,7 @@ function saveImport(importItem) {
     reader.readAsText(importedFile);
 }
 
+// Convert data into an object then pass it to download()
 function exportData() {
     var obj = {
         "name": document.getElementById('characterName').value,
@@ -64,7 +74,8 @@ function exportData() {
         "maxHealth": max_health,
         "currentHealth": current_health,
         "maxCells": max_cells,
-        "currentCells": current_cells
+        "currentCells": current_cells,
+        "equippedSpells": []
     }
 
     var filename = document.getElementById('characterName').value.toLowerCase().replaceAll(' ', '_')
@@ -134,6 +145,7 @@ function calculateBars(bar, value) {
         if (current_cells < 0) {
             current_cells = 0
         }
+        checkSpellCasting()
     }
 }
 
@@ -175,6 +187,41 @@ function addSub(button){
 
 // Spell Handling
 
+function checkSpellCasting() {
+    var spells = document.querySelectorAll('.active-spell')
+
+    for (var i = 0; i < spells.length; i++) {
+        var spell = spells[i]
+
+        if (spell.querySelector('.confirmCast').style.display != 'block') {
+            continue;
+        }
+
+        var cost = parseInt(spell.querySelector('.listedSpellCost').innerHTML)
+
+        if (cost > current_cells) {
+            spell.querySelector('.confirmCast').disabled = true
+        }
+        else {
+            spell.querySelector('.confirmCast').disabled = false
+        }
+    }
+
+}
+
+function colourSpells() {
+    var spells = document.querySelectorAll('.active-spell')
+
+    for (var i = 0; i < spells.length; i++) {
+        if (i % 2 == 0) {
+            spells[i].style.backgroundColor = '#f1f1f1'
+        }
+        else {
+            spells[i].style.backgroundColor = '#cecece'
+        }
+    }
+}
+
 function changeSpellList(magicList) {
     var magicType = magicList.value
 
@@ -192,4 +239,63 @@ function changeSpellList(magicList) {
         option.text = spells[i]
         spellNameMenu.appendChild(option)
     }
+}
+
+function addSpell() {
+    var spellType = document.getElementById('spellType').value
+    var spellName = Object.keys(spellList[spellType])[document.getElementById('spellName').value]
+    var spellInfo = spellList[spellType][spellName]
+
+    var templateSpell = document.querySelector('.template-spell')
+    var newSpell = templateSpell.cloneNode(true)
+
+    newSpell.classList.remove('template-spell')
+    newSpell.classList.add('active-spell')
+    newSpell.querySelector('.spellElementColour').classList.add(spellType)
+    newSpell.querySelector('.spellElementColour').classList.remove('spellElementColour')
+    newSpell.querySelector('.listedSpellName').innerHTML = spellName
+
+    for (const [key, value] of Object.entries(spellInfo)) {
+        if (key == "description") {
+            newSpell.querySelector('.spellDescription').innerHTML = value
+        }
+        else {
+            var section = document.createElement('div')
+            section.classList.add('spellSection')
+
+            var heading = document.createElement('h4')
+            heading.innerHTML = capitalizeFirstLetter(key)
+            section.appendChild(heading)
+            if (key == "cost") {
+                newSpell.querySelector('.confirmCast').style.display = "block"
+            }
+
+            var val = document.createElement('p')
+            val.innerHTML = value
+            val.classList.add('listedSpell' + capitalizeFirstLetter(key))
+            section.appendChild(val)
+
+            newSpell.querySelector('.aboutSpell').appendChild(section)
+        }
+    }
+
+    // newSpell.querySelector('.listedSpellCost').innerHTML = spellInfo.cost.toString()
+    // newSpell.querySelector('.listedSpellDamage').innerHTML = spellInfo.damage
+    // newSpell.querySelector('.listedSpellRange').innerHTML = spellInfo.range
+
+    document.querySelector('.spellHolder').appendChild(newSpell)
+    colourSpells()
+    checkSpellCasting()
+}
+
+function removeSpell(spell) {
+    spell.parentElement.parentElement.parentElement.remove()
+    colourSpells()
+}
+
+function castSpell(spell) {
+    var cost = -parseInt(spell.parentElement.parentElement.querySelector('.listedSpellCost').innerHTML)
+
+    calculateBars('cells', cost)
+    updateBars('cells')
 }

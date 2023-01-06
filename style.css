@@ -5,6 +5,7 @@ body,
 h1,
 h2,
 h3,
+h4,
 p {
     margin: 0;
 }
@@ -202,16 +203,28 @@ input[type="text"], input[type="number"] {
 }
 
 .spell {
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem;
-    width: 100%;
-    background-color: #dddddd;
+    display: grid;
+    grid-template-columns: 0.5rem 1fr;
+    gap: 0.25rem;
+}
+
+.template-spell {
+    display: none;
 }
 
 .aboutSpell {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    row-gap: 0.5rem;
+}
+
+.spellSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.confirmCast {
+    display: none;
 }
 
 .charInfo {grid-area: charinfo;}
@@ -265,3 +278,7 @@ input[type="text"], input[type="number"] {
             '. spelllist spelllist spelllist';
     }
 }
+
+.fusion {background-color: #5a270f;}
+.fire {background-color: #e34034;}
+.time {background: rgb(142,217,122); background: linear-gradient(90deg, rgba(142,217,122,1) 0%, rgba(136,136,136,1) 100%);}
