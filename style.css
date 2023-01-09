@@ -85,6 +85,7 @@ input[type="text"], input[type="number"] {
 .bars {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 1.25rem;
 }
 
@@ -232,10 +233,24 @@ input[type="text"], input[type="number"] {
     display: none;
 }
 
+.stat-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+    padding: 1rem 1rem 1rem 0;
+}
+
+.mainStat {
+    width: 60%;
+    font-family: 'Lora', serif;
+    font-size: 1.2rem;
+}
+
 .charInfo {grid-area: charinfo;}
 .bars { grid-area: bars; }
 .data-handler {grid-area: impexp;}
 .spell-list {grid-area: spelllist;}
+.main-stats {grid-area: mainstats;}
 
 @media screen and (max-width: 25em) {
     .data-handler {
@@ -251,10 +266,15 @@ input[type="text"], input[type="number"] {
             'impexp impexp'
             'bars bars'
             'charinfo charinfo'
-            'spelllist spelllist';
+            'spelllist spelllist'
+            'mainstats mainstats';
     }
 
     .info-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .stat-grid {
         grid-template-columns: 1fr 1fr;
     }
 }
@@ -265,11 +285,16 @@ input[type="text"], input[type="number"] {
             'header header impexp impexp'
             'bars bars bars bars'
             'charinfo charinfo charinfo charinfo'
-            'spelllist spelllist spelllist spelllist';
+            'spelllist spelllist spelllist spelllist'
+            'mainstats mainstats mainstats mainstats';
     }
 
     .data-sec {
         justify-content: center;
+    }
+
+    .stat-grid {
+        grid-template-columns: 1fr 1fr 1fr;
     }
 }
 
@@ -280,7 +305,7 @@ input[type="text"], input[type="number"] {
             'impexp impexp bars bars'
             'charinfo charinfo bars bars'
             'charinfo charinfo bars bars'
-            '. spelllist spelllist spelllist';
+            'mainstats spelllist spelllist spelllist';
     }
 }
 

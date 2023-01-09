@@ -42,6 +42,8 @@ function setImportedValues(dataOBJ) {
     document.getElementById('magicType').value = dataOBJ.magicType
     current_health = dataOBJ.currentHealth
     max_health = dataOBJ.maxHealth
+    current_overhealth = dataOBJ.currentOverhealth
+    max_overhealth = dataOBJ.maxHealth
     current_cells = dataOBJ.currentCells
     max_cells = dataOBJ.maxCells
 
@@ -120,6 +122,7 @@ function exportData() {
         "magicType": document.getElementById('magicType').value,
         "maxHealth": max_health,
         "currentHealth": current_health,
+        "currentOverhealth": current_overhealth,
         "maxCells": max_cells,
         "currentCells": current_cells,
         "equippedSpells": []
