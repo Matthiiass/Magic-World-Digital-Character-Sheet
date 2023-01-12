@@ -57,12 +57,12 @@
                         <input type="number" id="characterWeight" placeholder=0 min=0>
                     </div>
                     <div class="info-item">
-                        <h2>Magic Type</h2>
-                        <select id="magicType">
-                            <option value="attacker">Attacker</option>
-                            <option value="defender">Defender</option>
-                            <option value="support">Support</option>
-                            <option value="allRound">All-Rounder</option>
+                        <h2>Magic Crest</h2>
+                        <select id="magicCrest">
+                            <option value="telum">Telum</option>
+                            <option value="shield">Scutum</option>
+                            <option value="auxilium">Auxilium</option>
+                            <option value="omnia">Omnia</option>
                             <option value="none">None</option>
                         </select>
                     </div>
@@ -166,6 +166,7 @@
                         <option value=0>Fuse</option>
                     </select>
                     <button type="button" onclick="addSpell()">Add Spell</button>
+                    <p class="maxSpellCount">Max Spells: 6 (6)</p>
                 </div>
                 <div class="spellHolder">
                     <div class="spell template-spell">
@@ -195,31 +196,31 @@
                     </div>
                     <div class="info-item">
                         <h2>Strength</h2>
-                        <input type="number" class="mainStat" id="strStat" value="7">
+                        <input type="number" class="mainStat" id="strStat" value="1" min="0">
                     </div>
                     <div class="info-item">
                         <h2>Dexterity</h2>
-                        <input type="number" class="mainStat" id="dexStat" value="7">
+                        <input type="number" class="mainStat" id="dexStat" value="0" min="0">
                     </div>
                     <div class="info-item">
                         <h2>Casting</h2>
-                        <input type="number" class="mainStat" id="castStat" value="7">
+                        <input type="number" class="mainStat" id="castStat" value="1" min="0">
                     </div>
                     <div class="info-item">
                         <h2>Guard</h2>
-                        <input type="number" class="mainStat" id="guardStat" value="7">
+                        <input type="number" class="mainStat" id="guardStat" value="0" min="0">
                     </div>
                     <div class="info-item">
-                        <h2>Intelli...</h2>
-                        <input type="number" class="mainStat" id="intStat" value="7">
+                        <h2>Intelligence</h2>
+                        <input type="number" class="mainStat" id="intStat" value="0" min="0" onchange="updateSpellMax()">
                     </div>
                     <div class="info-item">
                         <h2>Wisdom</h2>
-                        <input type="number" class="mainStat" id="wisStat" value="7">
+                        <input type="number" class="mainStat" id="wisStat" value="0" min="0">
                     </div>
                     <div class="info-item">
                         <h2>Charisma</h2>
-                        <input type="number" class="mainStat" id="chaStat" value="7">
+                        <input type="number" class="mainStat" id="chaStat" value="0" min="0">
                     </div>
                 </div>
             </div>

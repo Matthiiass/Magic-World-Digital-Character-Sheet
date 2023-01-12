@@ -9,6 +9,8 @@ var max_cells = 100
 var current_sanity = 100
 var max_sanity = 100
 var selected = "health"
+var maxSpellSlots = 6
+var usedSpellSlots = 0
 
 // UTILITY FUNCTIONS
 
@@ -41,7 +43,7 @@ function setImportedValues(dataOBJ) {
     document.getElementById('characterAlignment').value = dataOBJ.alignment
     document.getElementById('characterHeight').value = dataOBJ.height
     document.getElementById('characterWeight').value = dataOBJ.weight
-    document.getElementById('magicType').value = dataOBJ.magicType
+    document.getElementById('magicCrest').value = dataOBJ.magicCrest
     current_health = dataOBJ.currentHealth
     max_health = dataOBJ.maxHealth
     current_overhealth = dataOBJ.currentOverhealth
@@ -121,7 +123,7 @@ function exportData() {
         "alignment": document.getElementById('characterAlignment').value,
         "height": document.getElementById('characterHeight').value,
         "weight": parseInt(document.getElementById('characterWeight').value),
-        "magicType": document.getElementById('magicType').value,
+        "magicCrest": document.getElementById('magicCrest').value,
         "maxHealth": max_health,
         "currentHealth": current_health,
         "currentOverhealth": current_overhealth,
@@ -418,6 +420,13 @@ function changeSpellList(magicList) {
 }
 
 function addSpell() {
+
+    if (usedSpellSlots == maxSpellSlots) {
+        return
+    }
+    usedSpellSlots++
+    spellCounter()
+
     var spellType = document.getElementById('spellType').value
     var spellName = Object.keys(spellList[spellType])[document.getElementById('spellName').value]
     var spellInfo = spellList[spellType][spellName]
@@ -462,8 +471,10 @@ function addSpell() {
 }
 
 function removeSpell(spell) {
+    usedSpellSlots--;
     spell.parentElement.parentElement.parentElement.remove()
     colourSpells()
+    spellCounter()
 }
 
 function castSpell(spell) {
@@ -471,4 +482,17 @@ function castSpell(spell) {
 
     calculateBars('cells', cost)
     updateBars('cells')
+}
+
+// ------------------------------
+
+// Stats
+
+function updateSpellMax() {
+    maxSpellSlots = 6 + parseInt(document.querySelector('#intStat').value)
+    spellCounter()
+}
+
+function spellCounter() {
+    document.querySelector('.maxSpellCount').innerHTML = `Max Spells: ${maxSpellSlots} (${maxSpellSlots-usedSpellSlots})`
 }
