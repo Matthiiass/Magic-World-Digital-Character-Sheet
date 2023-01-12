@@ -142,6 +142,12 @@ input[type="text"], input[type="number"] {
     cursor: pointer;
 }
 
+#sanitySelectionButton {
+    border: 2px solid #c567b9;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
 .barAlterButtons {
     border-radius: 0.5rem;
     cursor: pointer;
@@ -169,6 +175,10 @@ input[type="text"], input[type="number"] {
 
 #cell-bar {
     background-color: #59dfd8;
+}
+
+#sanity-bar {
+    background-color: #c057c0;
 }
 
 #overhealth-bar {
@@ -235,8 +245,8 @@ input[type="text"], input[type="number"] {
 
 .stat-grid {
     display: grid;
-    gap: 1rem;
-    grid-template-columns: 1fr;
+    row-gap: 1rem;
+    grid-template-columns: 1fr 1fr;
     padding: 1rem 1rem 1rem 0;
 }
 

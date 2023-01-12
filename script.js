@@ -6,6 +6,8 @@ var current_overhealth = 0
 var max_overhealth = max_health
 var current_cells = 100
 var max_cells = 100
+var current_sanity = 100
+var max_sanity = 100
 var selected = "health"
 
 // UTILITY FUNCTIONS
@@ -167,7 +169,7 @@ function updateBars(bar) {
         document.querySelector('#overhealth-bar').style.width = overhealthPercent.toString() + "%"
         document.querySelector('#health-numbers').innerHTML = (current_health + current_overhealth).toString() + " / " + max_health.toString()
     }
-    else {
+    else if (bar == "cells") {
         var percent = (current_cells / max_cells) * 100
         if (percent >= 80) {
             document.querySelector('#cell-bar').style.backgroundColor = '#59dfd8'
@@ -187,6 +189,11 @@ function updateBars(bar) {
         document.querySelector('#cell-bar').style.width = percent.toString() + "%"
         document.querySelector('#cell-numbers').innerHTML = current_cells.toString() + " / " + max_cells.toString()
     }
+    else {
+        var percent = (current_sanity / max_sanity) * 100
+        document.querySelector('#sanity-bar').style.width = percent.toString() + "%"
+        document.querySelector('#sanity-numbers').innerHTML = current_sanity.toString() + " / " + max_sanity.toString()
+    }
 }
 
 function calculateBars(bar, value) {
@@ -202,6 +209,9 @@ function calculateBars(bar, value) {
                     var healthNeeded = max_health - current_health
                     if (value > healthNeeded) {
                         var extraHealth = value - healthNeeded
+                        if (extraHealth > max_health) {
+                            extraHealth = max_health
+                        }
                         current_health = max_health
                         current_overhealth = extraHealth
                     }
@@ -276,7 +286,7 @@ function calculateBars(bar, value) {
 
         console.log(current_health, max_health, current_overhealth)
     }
-    else {
+    else if (bar == "cells") {
         current_cells = current_cells + value
         if (current_cells > max_cells) {
             current_cells = max_cells
@@ -285,6 +295,15 @@ function calculateBars(bar, value) {
             current_cells = 0
         }
         checkSpellCasting()
+    }
+    else {
+        current_sanity = current_sanity + value
+        if (current_sanity > max_sanity) {
+            current_sanity = max_sanity
+        }
+        if (current_sanity < 0) {
+            current_sanity = 0
+        }
     }
 }
 
@@ -297,8 +316,11 @@ function barSelected(button) {
         document.querySelector('#cellSelectionButton').style.color = '#000000'
         document.querySelector('#cellSelectionButton').style.backgroundColor = '#ffffff'
         document.querySelector('#cellSelectionButton').style.cursor = "pointer"
+        document.querySelector('#sanitySelectionButton').style.color = '#000000'
+        document.querySelector('#sanitySelectionButton').style.backgroundColor = '#ffffff'
+        document.querySelector('#sanitySelectionButton').style.cursor = "pointer"
     }
-    else {
+    else if (button.id == "cellSelectionButton") {
         selected = "cells"
         button.style.color = "#ffffff"
         button.style.backgroundColor = '#4f99bb'
@@ -306,6 +328,21 @@ function barSelected(button) {
         document.querySelector('#healthSelectionButton').style.color = '#000000'
         document.querySelector('#healthSelectionButton').style.backgroundColor = '#ffffff'
         document.querySelector('#healthSelectionButton').style.cursor = "pointer"
+        document.querySelector('#sanitySelectionButton').style.color = '#000000'
+        document.querySelector('#sanitySelectionButton').style.backgroundColor = '#ffffff'
+        document.querySelector('#sanitySelectionButton').style.cursor = "pointer"
+    }
+    else {
+        selected = "sanity"
+        button.style.color = "#ffffff"
+        button.style.backgroundColor = '#c567b9'
+        button.style.cursor = "initial"
+        document.querySelector('#healthSelectionButton').style.color = '#000000'
+        document.querySelector('#healthSelectionButton').style.backgroundColor = '#ffffff'
+        document.querySelector('#healthSelectionButton').style.cursor = "pointer"
+        document.querySelector('#cellSelectionButton').style.color = '#000000'
+        document.querySelector('#cellSelectionButton').style.backgroundColor = '#ffffff'
+        document.querySelector('#cellSelectionButton').style.cursor = "pointer"
     }
 }
 
