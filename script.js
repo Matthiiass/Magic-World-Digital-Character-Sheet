@@ -496,3 +496,8 @@ function updateSpellMax() {
 function spellCounter() {
     document.querySelector('.maxSpellCount').innerHTML = `Max Spells: ${maxSpellSlots} (${maxSpellSlots-usedSpellSlots})`
 }
+
+function modifierCalculator(ob) {
+    var textItem = ob.parentElement.querySelector('p')
+    textItem.innerHTML = `(${Math.floor((parseInt(ob.value) - 10) / 2)})`
+}

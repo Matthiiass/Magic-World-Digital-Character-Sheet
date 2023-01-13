@@ -251,7 +251,7 @@ input[type="text"], input[type="number"] {
 }
 
 .mainStat {
-    width: 60%;
+    width: 50%;
     font-family: 'Lora', serif;
     font-size: 1.2rem;
 }
@@ -261,6 +261,7 @@ input[type="text"], input[type="number"] {
 .data-handler {grid-area: impexp;}
 .spell-list {grid-area: spelllist;}
 .main-stats {grid-area: mainstats;}
+.lesser-stats {grid-area: lesserstats;}
 
 @media screen and (max-width: 25em) {
     .data-handler {
@@ -315,6 +316,7 @@ input[type="text"], input[type="number"] {
             'impexp impexp bars bars'
             'charinfo charinfo bars bars'
             'charinfo charinfo bars bars'
+            'lesserstats lesserstats . .'
             'mainstats mainstats . .'
             'spelllist spelllist spelllist spelllist';
     }
